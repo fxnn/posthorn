@@ -17,6 +17,10 @@ public class Mail extends ResourceSupport {
 
   private String mailId;
 
+  private String backendId;
+
+  private String backendMailId;
+
   private List<String> senders;
 
   private List<String> recipients;
@@ -42,8 +46,9 @@ public class Mail extends ResourceSupport {
    */
   private String receivingHost;
 
+  /** @todo Method for testing only, (re)move later */
   public Mail(String mailId, String addressFrom, String... recipients) {
-    this(mailId, asList(addressFrom), asList(recipients), Collections.<String>emptyList(),
+    this(mailId, "myBackend", mailId, asList(addressFrom), asList(recipients), Collections.<String>emptyList(),
         Collections.<String>emptyList(), null, Collections.<String>emptyList(), null);
   }
 

@@ -6,13 +6,9 @@
 
 package de.fxnn.posthorn;
 
-import com.fasterxml.classmate.TypeResolver;
 import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
-import com.mangofactory.swagger.models.alternates.AlternateTypeRule;
-import com.mangofactory.swagger.models.alternates.Alternates;
 import com.mangofactory.swagger.plugin.EnableSwagger;
 import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
-import com.mangofactory.swagger.scanners.ApiListingReferenceScanner;
 import com.wordnik.swagger.model.ApiInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

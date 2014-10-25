@@ -3,6 +3,8 @@ posthorn
 
 A WebMail client, written in Java, using Spring, providing a REST interface and a HTML+JavaScript frontend.
 
+Please note that this application is still in a very early stage of development and far from being usable in any way.
+
 
 License (MIT)
 -------------

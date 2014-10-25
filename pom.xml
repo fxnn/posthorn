@@ -12,83 +12,20 @@
     <groupId>de.fxnn</groupId>
     <artifactId>posthorn</artifactId>
     <version>1.0-SNAPSHOT</version>
-        
+    <packaging>pom</packaging>
+
     <name>${project.artifactId} - ${project.version}</name>
     <description>WebMail Client in RESTful Java</description>
         
     <url>http://github.com/fxnn/posthorn</url>
+
+    <modules>
+        <module>war</module>
+    </modules>
         
     <properties>
         <java.version>1.8</java.version>
     </properties>
-        
-    <dependencies>
-        <!-- Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.14.8</version>
-            <scope>provided</scope>
-        </dependency>
-        
-        <!-- Swagger -->
-        <dependency>
-            <!-- backend -->
-            <groupId>com.mangofactory</groupId>
-            <artifactId>swagger-springmvc</artifactId>
-            <version>0.8.8</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>swagger-ui</artifactId>
-            <version>2.0.12</version>
-        </dependency>
-        <dependency>
-            <!-- Seemingly needed since introducing Swagger -->
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-
-            
-        <!-- Spring -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.hateoas</groupId>
-            <artifactId>spring-hateoas</artifactId>
-        </dependency>
-        <dependency>
-            <!-- needed at least for velocity support -->
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-        </dependency>
-        
-        
-        <!-- Web stuff -->
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-        </dependency>
-                
-        <!-- Unit Test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-        
-    <build>
-        <plugins>
-            <plugin>
-                <!-- spring-boot:repackage rewrites the JAR file -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
     <scm>
         <connection>scm:git:https://github.com/fxnn/posthorn.git</connection>

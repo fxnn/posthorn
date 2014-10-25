@@ -1,7 +1,7 @@
-silbendrechsler
-===============
+posthorn
+========
 
-A Java Wiki implementation, providing a REST interface and a HTML+JavaScript frontend.
+A WebMail client, written in Java, using Spring, providing a REST interface and a HTML+JavaScript frontend.
 
 
 License (MIT)

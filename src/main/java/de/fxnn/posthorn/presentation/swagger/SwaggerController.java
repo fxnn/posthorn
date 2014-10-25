@@ -1,8 +1,6 @@
-package de.fxnn.silbendrechsler.presentation.swagger;
+package de.fxnn.posthorn.presentation.swagger;
 
 import com.mangofactory.swagger.annotations.ApiIgnore;
-import java.util.Map;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

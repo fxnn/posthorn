@@ -7,9 +7,9 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan
 @EnableAutoConfiguration
 public class PosthornApplication {
-    
-    public static void main(String[] args) {
-        SpringApplication.run(PosthornApplication.class, args);
-    }
-    
+
+  public static void main(String[] args) {
+    SpringApplication.run(PosthornApplication.class, args);
+  }
+
 }

@@ -1,10 +1,10 @@
 package de.fxnn.posthorn.presentation.rest.v1.mail;
 
-import java.net.URI;
-
+import com.wordnik.swagger.annotations.ApiOperation;
+import de.fxnn.posthorn.business.backend.boundary.MailSenderService;
+import de.fxnn.posthorn.business.backend.boundary.MailStorageService;
 import de.fxnn.posthorn.business.mail.entity.Mail;
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import static de.fxnn.posthorn.technical.RestResponses.*;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -19,23 +20,44 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RequestMapping("/v1/mail")
 public class MailController {
 
+  @Autowired
+  MailStorageService mailStorageService;
+
+  @Autowired
+  MailSenderService mailSenderService;
+
+  @ApiOperation("Retrieves meta data of a known mail")
   @RequestMapping(value = "/id/{mailId}", method = RequestMethod.GET)
   public ResponseEntity<Mail> getMetaData(@PathVariable String mailId) {
-    final Mail mail = new Mail(mailId, "from@example.com", "to1@example.com", "to2@example.com");
-    mail.add(linkTo(methodOn(MailController.class).getMetaData(mailId)).withSelfRel());
+    try {
+      final Mail mail = mailStorageService.getMail(mailId);
+      mail.add(linkTo(methodOn(MailController.class).getMetaData(mailId)).withSelfRel());
 
-    return ResponseEntity.ok(mail);
+      return ok(mail);
+    } catch (IllegalArgumentException ex) {
+      return notFound();
+    }
   }
 
+  /** @todo Probably we also need to update metadata of non-drafts (tags, folders, notes etc.) */
+  @ApiOperation("Updates meta data of a draft")
+  @RequestMapping(value = "/id/{mailId}", method = RequestMethod.PUT)
+  public ResponseEntity<Void> updateDraftMetaData(@PathVariable String mailId, @RequestBody Mail mail) {
+    try {
+      mailSenderService.updateDraft(mail);
+
+      return noContent();
+    } catch (IllegalArgumentException ex) {
+      return notFound();
+    }
+  }
+
+  @ApiOperation("Creates a new mail, stored as draft")
   @RequestMapping(value = "/create", method = RequestMethod.POST)
-  public ResponseEntity<Void> create(@RequestBody Mail mail) {
-    System.out.println(ReflectionToStringBuilder.reflectionToString(mail, ToStringStyle.MULTI_LINE_STYLE).toString()); // FIXME Remove System.out
+  public ResponseEntity<Void> createDraft(@RequestBody Mail mail) {
+    mailSenderService.createDraft(mail);
 
-    return ResponseEntity.created(uriTo(mail)).build();
-  }
-
-  protected static URI uriTo(Mail mail) {
-    return linkTo(methodOn(MailController.class).getMetaData(mail.getMailId())).toUri();
+    return created(uriTo(methodOn(MailController.class).getMetaData(mail.getIndexMailId())));
   }
 
 }

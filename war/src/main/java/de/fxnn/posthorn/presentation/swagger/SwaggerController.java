@@ -10,14 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/")
 public class SwaggerController {
-    
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView swagger() {
-        ModelAndView modelAndView = new ModelAndView("swagger");
-        modelAndView.addObject("swaggerWebjarPath", "webjars/swagger-ui/2.0.12/");
-        modelAndView.addObject("swaggerBaseUrl", "");
-        
-        return modelAndView;
-    }
-    
+
+  @RequestMapping(value = "/", method = RequestMethod.GET)
+  public ModelAndView swagger() {
+    ModelAndView modelAndView = new ModelAndView("swagger");
+    modelAndView.addObject("swaggerWebjarPath", "webjars/swagger-ui/2.0.12/");
+    modelAndView.addObject("swaggerBaseUrl", "");
+
+    return modelAndView;
+  }
+
 }

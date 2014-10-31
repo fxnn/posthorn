@@ -14,6 +14,8 @@ import static java.util.Arrays.asList;
 @Component
 public class FakeMailBackend implements MailStorage, MailSender {
 
+  public static final String PREFIX_OF_VALID_MAIL_IDS = "test";
+
   @Override
   public String getBackendId() {
     return getClass().getName();
@@ -21,7 +23,7 @@ public class FakeMailBackend implements MailStorage, MailSender {
 
   @Override
   public Optional<Mail> loadMail(String backendMailId) {
-    if (backendMailId.startsWith("test")) {
+    if (backendMailId.startsWith(PREFIX_OF_VALID_MAIL_IDS)) {
       Mail mail = new Mail();
       mail.setBackendId(getBackendId());
       mail.setBackendMailId(backendMailId);
@@ -36,12 +38,12 @@ public class FakeMailBackend implements MailStorage, MailSender {
 
   @Override
   public Iterable<String> findMailIdsNewerThan(DateTime dateTime) {
-    throw new UnsupportedOperationException(); // TODO Implementieren
+    return findAllMailIds();
   }
 
   @Override
   public Iterable<String> findAllMailIds() {
-    throw new UnsupportedOperationException(); // TODO Implementieren
+    return asList(PREFIX_OF_VALID_MAIL_IDS + "123", PREFIX_OF_VALID_MAIL_IDS + "456", PREFIX_OF_VALID_MAIL_IDS + "789");
   }
 
   @Override

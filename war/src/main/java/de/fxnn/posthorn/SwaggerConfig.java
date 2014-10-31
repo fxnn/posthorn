@@ -25,12 +25,11 @@ public class SwaggerConfig {
   public SwaggerSpringMvcPlugin customImplementation() {
     return new SwaggerSpringMvcPlugin(this.springSwaggerConfig) //
         .apiInfo(apiInfo()) //
-        .includePatterns("/v1/.*");
+        .includePatterns("/rest/.*");
   }
 
   private ApiInfo apiInfo() {
-    ApiInfo apiInfo = new ApiInfo("Posthorn REST API", "REST API for Posthorn WebMail client", "termsOfServiceUrl",
-        "mail@example.com", "API Licence Type", "API License URL");
-    return apiInfo;
+    return new ApiInfo("Posthorn REST API", "REST API for Posthorn WebMail client", null,
+        "dev@fxnn.de", null, null);
   }
 }

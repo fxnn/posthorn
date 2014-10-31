@@ -17,7 +17,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Controller
-@RequestMapping("/v1/mail")
+@RequestMapping("/rest/v1/mail")
 public class MailController {
 
   @Autowired

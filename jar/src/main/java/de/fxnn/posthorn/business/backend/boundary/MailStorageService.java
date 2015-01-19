@@ -1,6 +1,8 @@
 package de.fxnn.posthorn.business.backend.boundary;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import de.fxnn.posthorn.business.backend.controller.MailStorage;
@@ -13,6 +15,16 @@ public class MailStorageService {
 
   @Autowired
   protected Collection<MailStorage> mailStorages;
+
+  public List<String> findAllMailIds() {
+    List<String> result = new ArrayList<>();
+
+    for (MailStorage mailStorage : mailStorages) {
+      mailStorage.findAllMailIds().forEach(result::add);
+    }
+
+    return result;
+  }
 
   public Mail getMail(String indexMailId) {
     return findMailByIndexMailId(indexMailId);

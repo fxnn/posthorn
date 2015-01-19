@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="phonecatApp">
+<html lang="en" ng-app="posthornApp">
 <head>
     <meta charset="utf-8">
 
@@ -9,15 +9,23 @@
     <link rel="stylesheet" href="${rootPath}/css/main.css">
 
     <script src="${angularjsWebjarPath}/angular.js"></script>
+    <script src="${rootPath}/js/services.js"></script>
     <script src="${rootPath}/js/controllers.js"></script>
-    <!-- REST client script src="${angularjsWebjarPath}/angular-resource.js"></script-->
+    <script src="${angularjsWebjarPath}/angular-resource.js"></script>
 </head>
-<body ng-controller="PhoneListCtrl">
+<body ng-controller="MailListController">
 
     <ul>
-        <li ng-repeat="phone in phones">
-            <span>{{phone.name}}</span>
-            <p>{{phone.snippet}}</p>
+        <li ng-repeat="mail in mails">
+            <span>{{mail.indexId}}</span>
+            <dl>
+                <dt>dateTimeOfReception</dt>
+                <dd>{{mail.dateTimeOfReception}}</dd>
+                <dt>senders</dt>
+                <dd>{{mail.senders}}</dd>
+                <dt>recipients</dt>
+                <dd>{{mail.recipients}}</dd>
+            </dl>
         </li>
     </ul>
 

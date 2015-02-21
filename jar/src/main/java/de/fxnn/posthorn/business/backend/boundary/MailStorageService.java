@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import de.fxnn.posthorn.business.backend.controller.MailStorage;
 import de.fxnn.posthorn.business.mail.entity.Mail;
+import de.fxnn.posthorn.business.mail.entity.MailId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,8 @@ public class MailStorageService {
   @Autowired
   protected Collection<MailStorage> mailStorages;
 
-  public List<String> findAllMailIds() {
-    List<String> result = new ArrayList<>();
+  public List<MailId> findAllMailIds() {
+    List<MailId> result = new ArrayList<>();
 
     for (MailStorage mailStorage : mailStorages) {
       mailStorage.findAllMailIds().forEach(result::add);
@@ -26,21 +27,19 @@ public class MailStorageService {
     return result;
   }
 
-  public Mail getMail(String indexMailId) {
-    return findMailByIndexMailId(indexMailId);
+  public Mail getMail(MailId mailId) {
+    return findMailByMailId(mailId);
   }
 
-  private Mail findMailByIndexMailId(String indexMailId) {
+  private Mail findMailByMailId(MailId mailId) {
     for (MailStorage mailStorage : mailStorages) {
-      // TODO: Eventually, we need to have our own index of mails, so to give only the backendMailId to backend
-      Optional<Mail> mail = mailStorage.loadMail(indexMailId);
+      Optional<Mail> mail = mailStorage.loadMail(mailId);
       if (mail.isPresent()) {
-        mail.get().setIndexMailId(indexMailId);
         return mail.get();
       }
     }
 
-    throw new IllegalArgumentException("No mail with id [" + indexMailId + "]");
+    throw new IllegalArgumentException("No mail with mailId [" + mailId + "]");
   }
 
 }

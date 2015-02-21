@@ -15,34 +15,31 @@ public class MailSenderService {
   protected Collection<MailSender> mailSenders;
 
   /**
-   * The attribute {@link Mail#backendId} SHOULD be set.
+   * The attribute {@link Mail#mailId} SHOULD NOT be set.
    */
-  public void createDraft(Mail mail) {
+  public void createDraft(String backendId, Mail mail) {
 
-    for (MailSender mailSender : mailSenders) {
-      if (Objects.equals(mail.getBackendId(), mailSender.getBackendId())) {
-        mailSender.createDraft(mail);
-        mail.setIndexMailId(mail.getBackendMailId()); // TODO: Later, we will have our own indexMailIds
-        return;
-      }
-    }
+    getMailSenderByBackendId(backendId).createDraft(mail);
 
-    throw new IllegalArgumentException("No MailSender found for backendId [" + mail.getBackendId() + "]");
   }
 
   /**
-   * The attribute {@link Mail#indexMailId} MUST be set.
-   * The attributes {@link Mail#backendId}, {@link Mail#backendMailId} SHOULD be set.
+   * The attribute {@link Mail#mailId} MUST be set.
    */
   public void updateDraft(Mail mail) {
+
+    getMailSenderByBackendId(mail.getMailId().getBackendId()).updateDraft(mail);
+
+  }
+
+  protected MailSender getMailSenderByBackendId(String backendId) {
     for (MailSender mailSender : mailSenders) {
-      if (mail.getBackendId().equals(mailSender.getBackendId())) {
-        mailSender.updateDraft(mail);
-        return;
+      if (Objects.equals(backendId, mailSender.getBackendId())) {
+        return mailSender;
       }
     }
 
-    throw new IllegalArgumentException("No MailSender found for backendId [" + mail.getBackendId() + "]");
+    throw new IllegalArgumentException("No MailSender found for backendId [" + backendId + "]");
   }
 
 }

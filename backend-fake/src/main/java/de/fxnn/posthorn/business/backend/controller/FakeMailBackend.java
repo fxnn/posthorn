@@ -1,12 +1,11 @@
 package de.fxnn.posthorn.business.backend.controller;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import de.fxnn.posthorn.business.mail.entity.Mail;
+import de.fxnn.posthorn.business.mail.entity.MailId;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
 
 import static java.util.Arrays.asList;
@@ -22,11 +21,13 @@ public class FakeMailBackend implements MailStorage, MailSender {
   }
 
   @Override
-  public Optional<Mail> loadMail(String backendMailId) {
-    if (backendMailId.startsWith(PREFIX_OF_VALID_MAIL_IDS)) {
+  public Optional<Mail> loadMail(MailId mailId) {
+    if (getBackendId().equals(mailId.getBackendId()) && mailId.getBackendMailId()
+        .startsWith(PREFIX_OF_VALID_MAIL_IDS)) {
       Mail mail = new Mail();
-      mail.setBackendId(getBackendId());
-      mail.setBackendMailId(backendMailId);
+      mail.setMailId(mailId);
+      mail.setDateTimeOfSending(LocalDateTime.now());
+      mail.setDateTimeOfReception(LocalDateTime.now());
       mail.setSenders(asList("from@example.com"));
       mail.setRecipients(asList("to1@example.com", "to2@example.com"));
 
@@ -37,30 +38,32 @@ public class FakeMailBackend implements MailStorage, MailSender {
   }
 
   @Override
-  public Iterable<String> findMailIdsNewerThan(DateTime dateTime) {
+  public Iterable<MailId> findMailIdsNewerThan(LocalDateTime dateTime) {
     return findAllMailIds();
   }
 
   @Override
-  public Iterable<String> findAllMailIds() {
-    return asList(PREFIX_OF_VALID_MAIL_IDS + "123", PREFIX_OF_VALID_MAIL_IDS + "456", PREFIX_OF_VALID_MAIL_IDS + "789");
+  public Iterable<MailId> findAllMailIds() {
+    return asList(mailId(PREFIX_OF_VALID_MAIL_IDS + "123"), mailId(PREFIX_OF_VALID_MAIL_IDS + "456"),
+        mailId(PREFIX_OF_VALID_MAIL_IDS + "789"));
   }
 
   @Override
   public void createDraft(Mail mail) {
-    mail.setBackendMailId("test" + RandomStringUtils.randomNumeric(3));
-    System.out.println(ReflectionToStringBuilder.reflectionToString(mail, ToStringStyle.MULTI_LINE_STYLE)
-        .toString());
+    mail.setMailId(mailId("test" + RandomStringUtils.randomNumeric(3)));
   }
 
   @Override
   public void updateDraft(Mail mail) {
-    System.out.println(ReflectionToStringBuilder.reflectionToString(mail, ToStringStyle.MULTI_LINE_STYLE)
-        .toString());
+    // we'd save it to a database here
   }
 
   @Override
   public void sendDraft(String backendMailId) {
-    // TODO Implementieren
+    // we'd send it here
+  }
+
+  protected MailId mailId(String backendMailId) {
+    return new MailId(getBackendId(), backendMailId);
   }
 }

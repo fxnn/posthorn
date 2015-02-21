@@ -1,26 +1,17 @@
 package de.fxnn.posthorn.business.backend.controller;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import de.fxnn.posthorn.business.mail.entity.Mail;
-import org.joda.time.DateTime;
+import de.fxnn.posthorn.business.mail.entity.MailId;
 
 public interface MailStorage extends MailBackend {
 
-  /**
-   * NOTE, that the {@link Mail#indexMailId} parameter SHOULD not be set on the result, as it isn't the matter of the
-   * backend.
-   */
-  Optional<Mail> loadMail(String backendMailId);
+  Optional<Mail> loadMail(MailId mailId);
 
-  /**
-   * NOTE, that the returned strings are backendMailIds that can be given to {@link #loadMail(String)}.
-   */
-  Iterable<String> findMailIdsNewerThan(DateTime dateTime);
+  Iterable<MailId> findMailIdsNewerThan(LocalDateTime dateTime);
 
-  /**
-   * NOTE, that the returned strings are backendMailIds that can be given to {@link #loadMail(String)}.
-   */
-  Iterable<String> findAllMailIds();
+  Iterable<MailId> findAllMailIds();
 
 }

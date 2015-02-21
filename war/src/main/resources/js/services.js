@@ -6,7 +6,7 @@ var posthornServices = angular.module('posthornServices', ['ngResource']);
 
 posthornServices.factory('Mail', ['$resource',
     function($resource){
-        return $resource('/rest/v1/mail/:mailId', {mailId:'@indexMailId'}, {}, {stripTrailingSlashes: false});
+        return $resource('/rest/v1/mail/:mailId', {mailId:'@mailId'}, {}, {stripTrailingSlashes: false});
     }]);
 
 // NOTE: allows for new Mail({a:'b'}).$save(); or mail.$delete(); or Mail.$get({mailId:'abc'});

@@ -7,7 +7,7 @@
         <!-- cf http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#using-boot-maven-without-a-parent -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.0.M2</version>
+        <version>1.2.1.RELEASE</version>
     </parent>
         
     <groupId>de.fxnn</groupId>

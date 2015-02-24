@@ -5,6 +5,8 @@ A WebMail client, written in Java, using Spring, providing a REST interface and 
 
 Please note that this application is still in a very early stage of development and far from being usable in any way.
 
+[![Build Status](https://travis-ci.org/fxnn/posthorn.svg)](https://travis-ci.org/fxnn/posthorn)
+
 
 License
 -------

@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @ApiIgnore
 @Controller
 @RequestMapping("/")
-public class AngularjsController {
+public class AngularJsController {
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public ModelAndView angularJs() {
